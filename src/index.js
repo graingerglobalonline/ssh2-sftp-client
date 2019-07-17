@@ -214,11 +214,8 @@ SftpClient.prototype.get = function(path, dst, options) {
         });
 
         if (dst === undefined) {
-          // no dst specified, return buffer of data
-          let concatStream = concat(buff => {
-            return resolve(buff);
-          });
-          rdr.pipe(concatStream);
+          // no dst specified, return read stream
+          return resolve(rdr);
         } else if (typeof dst === 'string') {
           // dst local file path
           let wtr = fs.createWriteStream(dst);
